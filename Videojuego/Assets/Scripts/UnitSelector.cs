@@ -19,11 +19,12 @@ public class UnitSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetMouseButtonDown(0))
         {
             DeactivateAllUnits();
             startPos = Input.mousePosition;
-            
+
         }
 
         if (Input.GetMouseButton(0))
@@ -32,7 +33,7 @@ public class UnitSelector : MonoBehaviour
             DrawRect();
 
             // X axis
-            if(Input.mousePosition.x < startPos.x)
+            if (Input.mousePosition.x < startPos.x)
             {
                 selectionRect.xMin = Input.mousePosition.x;
                 selectionRect.xMax = startPos.x;
@@ -65,6 +66,7 @@ public class UnitSelector : MonoBehaviour
             endPos = Vector2.zero;
             DrawRect();
         }
+        
     }
 
     void DrawRect()
@@ -89,7 +91,6 @@ public class UnitSelector : MonoBehaviour
                 unit.SetSelector(true);
             }
         }
-        
     }
 
     void DeactivateAllUnits()
@@ -98,5 +99,6 @@ public class UnitSelector : MonoBehaviour
         {
             unit.SetSelector(false);
         }
+
     }
 }

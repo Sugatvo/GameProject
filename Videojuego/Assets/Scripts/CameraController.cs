@@ -9,14 +9,14 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = transform.position;
+        Vector3 pos = transform.localPosition;
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panBorderThickness)
         {
-            pos.z += panSpeed * Time.deltaTime;
+            pos.y += panSpeed * Time.deltaTime;
         }
         if (Input.GetKey("s") || Input.mousePosition.y <= panBorderThickness)
         {
-            pos.z -= panSpeed * Time.deltaTime;
+            pos.y -= panSpeed * Time.deltaTime;
         }
         if (Input.GetKey("d") || Input.mousePosition.x >= Screen.width - panBorderThickness)
         {
@@ -28,8 +28,8 @@ public class CameraController : MonoBehaviour
         }
 
         pos.x = Mathf.Clamp(pos.x, -panLimit.x, panLimit.x);
-        pos.z = Mathf.Clamp(pos.z, -panLimit.y, panLimit.y);
+        pos.y = Mathf.Clamp(pos.y, -panLimit.y, panLimit.y);
 
-        transform.position = pos;
+        transform.localPosition = pos;
     }
 }

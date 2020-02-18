@@ -34,30 +34,29 @@ public class Unit : MonoBehaviour
         if(State == true)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             RaycastHit hit;
 
             if (Input.GetMouseButtonDown(1))
             {
-                if (Physics.Raycast(ray, out hit, 100))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
                     mNavMeshAgent.destination = hit.point;
                 }
 
             }
 
-            if (mNavMeshAgent.remainingDistance <= mNavMeshAgent.stoppingDistance)
-            {
-                mRunning = false;
-            }
-            else
-            {
-                mRunning = true;
-            }
-
-            mAnimator.SetBool("running", mRunning);
-
         }
+
+        if (mNavMeshAgent.remainingDistance <= mNavMeshAgent.stoppingDistance)
+        {
+            mRunning = false;
+        }
+        else
+        {
+            mRunning = true;
+        }
+
+        mAnimator.SetBool("running", mRunning);
 
     }
 
