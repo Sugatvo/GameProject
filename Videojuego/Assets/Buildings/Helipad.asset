@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36bf51f9b34956846b8905d24b3476f8, type: 3}
+  m_Name: Helipad
+  m_EditorClassIdentifier: 
+  Name: Helipad
+  Description: 
+  Offset: {x: 0, y: 0.48, z: 0}
+  Prefab: {fileID: 3903958228144078864, guid: b1019fcb1070cda4d980a60808c477d8, type: 3}

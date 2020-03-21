@@ -20,23 +20,25 @@ public class BuildSelector : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingsMask))
             {
-                Debug.Log("Hit build");
-                if (hit.collider.gameObject.GetComponent<Build>().GetSelector())
+                BuildingBehaviour building = hit.collider.gameObject.GetComponent<BuildingBehaviour>();
+                if (building && building.built)
                 {
-                    hit.collider.gameObject.GetComponent<Build>().SetSelector(false);
+                    if (building.selected)
+                    {
+                        building.SetSelected(false);
+                    }
+                    else
+                    {
+                        building.SetSelected(true);
+                    }
                 }
-                else
-                {
-                    hit.collider.gameObject.GetComponent<Build>().SetSelector(true);
-                }
-
             }
 
             else if (!eventSystem.IsPointerOverGameObject())
             { 
-                foreach (Build b in SelectionManager.buildList)
+                foreach (BuildingBehaviour building in SelectionManager.buildList)
                 {
-                    b.SetSelector(false);
+                    building.SetSelected(false);
                 }
             }
 

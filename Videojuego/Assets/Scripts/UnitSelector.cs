@@ -2,13 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UnitSelector : MonoBehaviour
 {
+    public EventSystem eventSystem;
     public RectTransform selectorImage;
     Rect selectionRect;
     Vector2 startPos;
     Vector2 endPos;
+
+    public bool selecting;
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,18 +21,22 @@ public class UnitSelector : MonoBehaviour
         DrawRect();
     }
 
+    private bool ValidMouseClick()
+    {
+        return !BuildManager.instance.isBuilding && !eventSystem.IsPointerOverGameObject();
+    }
+
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ValidMouseClick())
         {
             DeactivateAllUnits();
             startPos = Input.mousePosition;
-
+            selecting = true;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && selecting)
         {
             endPos = Input.mousePosition;
             DrawRect();
@@ -55,18 +64,16 @@ public class UnitSelector : MonoBehaviour
                 selectionRect.yMin = startPos.y;
                 selectionRect.yMax = Input.mousePosition.y;
             }
-
-
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && selecting)
         {
             CheckSelectedUnits();
             startPos = Vector2.zero;
             endPos = Vector2.zero;
             DrawRect();
+            selecting = false;
         }
-        
     }
 
     void DrawRect()
@@ -84,20 +91,20 @@ public class UnitSelector : MonoBehaviour
 
     void CheckSelectedUnits()
     {
-        foreach (Unit unit in SelectionManager.unitList)
+        foreach (UnitBehaviour unit in SelectionManager.unitList)
         {
             if (selectionRect.Contains(Camera.main.WorldToScreenPoint(unit.transform.position)))
             {
-                unit.SetSelector(true);
+                unit.SetSelected(true);
             }
         }
     }
 
     void DeactivateAllUnits()
     {
-        foreach(Unit unit in SelectionManager.unitList)
+        foreach(UnitBehaviour unit in SelectionManager.unitList)
         {
-            unit.SetSelector(false);
+            unit.SetSelected(false);
         }
 
     }
