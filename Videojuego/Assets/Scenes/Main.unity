@@ -4078,7 +4078,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563986a732f5e67479d47c9cf77eb8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 1106126376}
   selectorImage: {fileID: 2000033260}
+  selecting: 0
 --- !u!4 &1301181739
 Transform:
   m_ObjectHideFlags: 0
