@@ -7,8 +7,11 @@ public class UnitBehaviour : Entity
 {
     private Animator mAnimator;
     private NavMeshAgent mNavMeshAgent;
-    private bool mRunning = false;
-
+    private bool moving = false;
+    private bool pending_request = false;
+    private bool mining = false;
+    public LayerMask groundLayer;
+    public LayerMask resourceLayer;
 
     protected override void OnStart()
     {
@@ -25,15 +28,53 @@ public class UnitBehaviour : Entity
             RaycastHit hit;
             if (Input.GetMouseButtonDown(1))
             {
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
                     mNavMeshAgent.destination = hit.point;
+
+                if(Physics.Raycast(ray, out hit, Mathf.Infinity, resourceLayer))
+                {
+                    Debug.Log(hit.transform.name);
+                    if(hit.transform.name == "GoldOre")
+                    {
+                        pending_request = true;
+                    }
+                    
+
+                }
             }
         }
 
         if (mNavMeshAgent.remainingDistance <= mNavMeshAgent.stoppingDistance)
-            mRunning = false;
+        {
+            moving = false;
+            if(pending_request)
+            {
+                mining = true;
+                pending_request = false;
+            }
+        }
         else
-            mRunning = true;
-        mAnimator.SetBool("running", mRunning);
+        {
+            moving = true;
+        }
+
+        OnAnimation();
     }
+
+    public bool isMoving()
+    {
+        return moving;
+    }
+
+    public bool isMining()
+    {
+        return mining;
+    }
+
+    public Animator getAnimator()
+    {
+        return mAnimator;
+    }
+
+    protected virtual void OnAnimation() { }
 }

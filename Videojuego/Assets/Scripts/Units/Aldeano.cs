@@ -41,4 +41,11 @@ public class Aldeano : UnitBehaviour
         UIController = null;
         UIPanel = null;
     }
+
+    protected override void OnAnimation()
+    {
+        getAnimator().SetBool("running", isMoving());
+        getAnimator().SetBool("mining", isMining());
+    }
+
 }

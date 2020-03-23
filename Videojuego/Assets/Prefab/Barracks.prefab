@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPosition: {x: -5, y: 0, z: 0}
-  UnitTop: {fileID: 5532386103785910200, guid: 7c5662d02397d3a40aede8de781dd739, type: 3}
+  UnitTop: {fileID: 8165285889292598076, guid: 1fa8d62291f0e7847beea005d85956bb, type: 3}
   UnitBot: {fileID: 1349295995676768324, guid: c204b78ef16359d4bbfd1c943f1ef0b0, type: 3}
 --- !u!1 &4419535246687878323
 GameObject:
