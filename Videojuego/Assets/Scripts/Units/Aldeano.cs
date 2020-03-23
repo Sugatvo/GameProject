@@ -44,8 +44,12 @@ public class Aldeano : UnitBehaviour
 
     protected override void OnAnimation()
     {
+
         getAnimator().SetBool("running", isMoving());
-        getAnimator().SetBool("mining", isMining());
+
+        //getAnimator().SetBool("mining", isMining());
+        
+       
     }
 
 }
