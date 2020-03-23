@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class BuildingBehaviour : Entity
+public class BuildingBehaviour : Entity
 {
     public bool placed { get; private set; }
     public bool built { get; private set; }
@@ -67,5 +67,4 @@ public abstract class BuildingBehaviour : Entity
     // API???
     protected virtual void OnPlaced() { }
     protected virtual void OnBuilt() { }
-
 }

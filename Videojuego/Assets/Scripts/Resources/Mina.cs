@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Mina : ResourceBehaviour
 {
+
+    /*
     private GameObject UIPanel;
 
     protected override void OnSelected()
@@ -18,6 +20,6 @@ public class Mina : ResourceBehaviour
         UIManager.instance.ReleasePanel(this, 3);
         UIPanel = null;
     }
-
+    */
 
 }

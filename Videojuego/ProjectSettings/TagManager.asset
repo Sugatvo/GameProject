@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Entity
   - Selector
   layers:
   - Default
@@ -18,9 +19,9 @@ TagManager:
   - Buildings
   - Minimap
   - Both
-  - FogOfWar
-  - Ground
-  - Resources
+  - Resource
+  - 
+  - 
   - 
   - 
   - 
