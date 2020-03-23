@@ -5,76 +5,175 @@ using UnityEngine.AI;
 
 public class UnitBehaviour : Entity
 {
-    private Animator mAnimator;
-    private NavMeshAgent mNavMeshAgent;
-    private bool moving = false;
-    private bool pending_request = false;
-    private bool mining = false;
-    public LayerMask groundLayer;
-    public LayerMask resourceLayer;
+    private Animator animator;
+    private NavMeshAgent navMeshAgent;
+
+    public UnitData unitData;
+
+    public Entity Target { get; private set; }
+    public bool inRange { get; private set; }
+
+    private float nextFire;
+
 
     protected override void OnStart()
     {
         SelectionManager.unitList.Add(this);
-        mAnimator = GetComponent<Animator>();
-        mNavMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        PauseMovement();
     }
 
-    void Update()
+    protected override void OnUpdate()
+    {
+        UpdateInput();
+        UpdateMovement();
+        UpdateCombat();
+    }
+    protected override void OnLateUpdate()
+    {
+        if (Target)
+        {
+            Vector3 position = Target.transform.position;
+            navMeshAgent.SetDestination(position);
+            if(!IsMoving())
+                transform.LookAt(position);
+        }
+    }
+
+    private void UpdateInput()
     {
         if (selected)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Input.GetMouseButtonDown(1))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-                    mNavMeshAgent.destination = hit.point;
-
-                if(Physics.Raycast(ray, out hit, Mathf.Infinity, resourceLayer))
+                if (Input.GetMouseButton(1) && hit.collider)
                 {
-                    Debug.Log(hit.transform.name);
-                    if(hit.transform.name == "GoldOre")
-                    {
-                        pending_request = true;
+                    if (hit.collider.tag == "Entity") {
+                        Entity entity = hit.collider.GetComponent<Entity>();
+                        if (entity != this)
+                        {
+                            SetTarget(entity);
+                            SetDestination(Target.transform.position);
+                        }
+                        else
+                        {
+                            SetTarget(null);
+                            SetDestination(hit.point);
+                        }
                     }
-                    
-
-                }
+                    else
+                    {
+                        SetTarget(null);
+                        SetDestination(hit.point);
+                    }
+                }       
             }
         }
-
-        if (mNavMeshAgent.remainingDistance <= mNavMeshAgent.stoppingDistance)
+    }
+    private void UpdateMovement()
+    {
+        float distance = navMeshAgent.remainingDistance;
+        if (Target)
         {
-            moving = false;
-            if(pending_request)
+            bool newRange = false;
+            if (distance <= unitData.Range)
+                newRange = true;
+
+            if (inRange != newRange)
             {
-                mining = true;
-                pending_request = false;
+                inRange = newRange;
+                OnRangeChange();
             }
         }
         else
         {
-            moving = true;
+            if (inRange)
+            {
+                inRange = false;
+                OnRangeChange();
+            }
+
+            bool targetReach = distance <= navMeshAgent.stoppingDistance;
+            if (IsMoving())
+            {
+                if (targetReach)
+                {
+                    PauseMovement();
+                    OnArrived();
+                }
+            }
+            else
+            {
+                if (!targetReach)
+                {
+                    ResumeMovement();
+                }
+            }
         }
-
-        OnAnimation();
     }
-
-    public bool isMoving()
+    protected virtual void OnArrived() { }
+    protected virtual void OnRangeChange()
     {
-        return moving;
+        if (inRange)
+            PauseMovement();
+        else
+            ResumeMovement();
     }
-
-    public bool isMining()
+    protected virtual void UpdateCombat()
     {
-        return mining;
+        if(Target && inRange && Time.time > nextFire)
+        {
+            nextFire = Time.time + unitData.AttackCooldown;
+            Target.Damage(unitData.AttackDamage);
+        }
     }
 
-    public Animator getAnimator()
+    protected void PauseMovement()
     {
-        return mAnimator;
+        navMeshAgent.isStopped = true;
+        animator.SetBool("running", false);
+    }
+    protected void ResumeMovement()
+    {
+        navMeshAgent.isStopped = false;
+        animator.SetBool("running", true);
+    }
+    protected void SetDestination(Vector3 target)
+    {
+        navMeshAgent.SetDestination(target);
+        ResumeMovement();
+    }
+    protected bool IsMoving()
+    {
+        return !navMeshAgent.isStopped && navMeshAgent.velocity.sqrMagnitude > 0.01f;
     }
 
-    protected virtual void OnAnimation() { }
+    protected void SetTarget(Entity target)
+    {
+        if (Target != target && target != this)
+        {
+            Target = target;
+            OnTargetSet();
+        }
+    }
+    protected virtual void OnTargetSet() { }
+
+    protected override void OnDestroyEntity()
+    {
+        base.OnDestroyEntity();
+        SelectionManager.unitList.Remove(this);
+    }
+}
+
+[System.Serializable]
+public class UnitData
+{
+    [Header("Combat Info")]
+    public float AttackDamage;
+    public float AttackCooldown;
+    public float Range;
 }

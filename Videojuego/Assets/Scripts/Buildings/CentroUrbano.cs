@@ -32,9 +32,4 @@ public class CentroUrbano : BuildingBehaviour
         UIController = null;
         UIPanel = null;
     }
-
-    protected override void OnCanBuild() 
-    {
-        int madera_Actual = ResourceManager.player1_Madera;
-    }
 }

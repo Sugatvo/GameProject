@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class BuildingBehaviour : Entity
+public class BuildingBehaviour : Entity
 {
     public bool placed { get; private set; }
     public bool built { get; private set; }
@@ -18,37 +18,7 @@ public abstract class BuildingBehaviour : Entity
     protected override void OnStart()
     {
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
-        if (this.GetType().ToString().Equals("CentroUrbano"))
-        {
-            if (ResourceManager.player1_Hierro >= 500 && ResourceManager.player1_Madera >= 500)
-            {
-                ResourceManager.player1_Hierro = ResourceManager.player1_Hierro - 500;
-                ResourceManager.player1_Madera = ResourceManager.player1_Madera - 500;
-                buildingCollider = gameObject.GetComponent<Collider>();
-
-            }
-        }
-        else if (this.GetType().ToString().Equals("Barracks"))
-        {
-            if (ResourceManager.player1_Hierro >= 250 && ResourceManager.player1_Madera >= 300)
-            {
-                ResourceManager.player1_Hierro = ResourceManager.player1_Hierro - 250;
-                ResourceManager.player1_Madera = ResourceManager.player1_Madera - 300;
-                buildingCollider = gameObject.GetComponent<Collider>();
-
-            }
-        }
-        else if (this.GetType().ToString().Equals("OilStorage"))
-        {
-            if (ResourceManager.player1_Hierro >= 150 && ResourceManager.player1_Madera >= 200)
-            {
-                ResourceManager.player1_Hierro = ResourceManager.player1_Hierro - 150;
-                ResourceManager.player1_Madera = ResourceManager.player1_Madera - 200;
-                buildingCollider = gameObject.GetComponent<Collider>();
-
-            }
-        }
-
+        buildingCollider = gameObject.GetComponent<Collider>();
     }
 
     private void Update()
@@ -92,17 +62,9 @@ public abstract class BuildingBehaviour : Entity
         SelectionManager.buildList.Add(this);
         built = true;
         OnBuilt();
-
-    }
-
-    public void CanBuild()
-    {
-        OnCanBuild();
     }
 
     // API???
     protected virtual void OnPlaced() { }
     protected virtual void OnBuilt() { }
-    protected virtual void OnCanBuild() { }
-
 }
