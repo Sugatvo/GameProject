@@ -7,8 +7,13 @@ public class UnitBehaviour : Entity
 {
     private Animator mAnimator;
     private NavMeshAgent navMeshAgent;
-    private bool moving = false;
     private bool mining = false;
+    private bool farming = false;
+    private bool cutting = false;
+
+    private bool request_mining = false;
+    private bool request_farming = false;
+    private bool request_cutting = false;
 
     public UnitData unitData;
 
@@ -32,6 +37,7 @@ public class UnitBehaviour : Entity
         UpdateInput();
         UpdateMovement();
         UpdateCombat();
+        UpdateResources();
     }
     protected override void OnLateUpdate()
     {
@@ -58,6 +64,8 @@ public class UnitBehaviour : Entity
                         Entity entity = hit.collider.GetComponent<Entity>();
                         if (entity != this)
                         {
+                            request_farming = false;
+                            request_mining = false;
                             SetTarget(entity);
                             SetDestination(Target.transform.position);
                         }
@@ -67,11 +75,39 @@ public class UnitBehaviour : Entity
                             SetDestination(hit.point);
                         }
                     }
+                    else if (hit.collider.tag == "Resource")
+                    {
+                        ResourceBehaviour r = hit.collider.GetComponent<ResourceBehaviour>();
+                        if (r.name == "Ore")
+                        {
+                            request_mining = true;
+                            SetTarget(null);
+                            SetDestination(hit.point);
+                        }
+
+                        if (r.name == "Farm")
+                        {
+                            request_farming = true;
+                            SetTarget(null);
+                            SetDestination(hit.point);
+                        }
+                        if (r.name == "Tree")
+                        {
+                            request_cutting = true;
+                            SetTarget(null);
+                            SetDestination(hit.point);
+                        }
+
+                    }
                     else
                     {
+                        request_farming = false;
+                        request_mining = false;
+                        request_cutting = false;
                         SetTarget(null);
                         SetDestination(hit.point);
                     }
+                      
                 }       
             }
         }
@@ -104,7 +140,30 @@ public class UnitBehaviour : Entity
             {
                 if (targetReach)
                 {
+                    
                     PauseMovement();
+                    if (request_mining)
+                    {
+                        mining = true;
+                        request_mining = false;
+                    }
+                    else if (request_farming)
+                    {
+                        farming = true;
+                        request_farming = false;
+                    }
+                    else if (request_cutting)
+                    {
+                        cutting = true;
+                        request_cutting = false;
+                    }
+                    else
+                    {
+                        farming = false;
+                        mining = false;
+                        cutting = false;
+                    }
+                    OnAnimation();
                     OnArrived();
                 }
             }
@@ -137,18 +196,20 @@ public class UnitBehaviour : Entity
     protected void PauseMovement()
     {
         navMeshAgent.isStopped = true;
-        moving = false;
         OnAnimation();
     }
     protected void ResumeMovement()
     {
         navMeshAgent.isStopped = false;
-        moving = true;
         OnAnimation();
 
     }
     protected void SetDestination(Vector3 target)
     {
+        mining = false;
+        farming = false;
+        cutting = false;
+        OnAnimation();
         navMeshAgent.SetDestination(target);
         ResumeMovement();
     }
@@ -175,20 +236,27 @@ public class UnitBehaviour : Entity
 
     protected virtual void OnAnimation() { }
 
-    public bool isMoving()
-    {
-        return moving;
-    }
-
     public bool isMining()
     {
         return mining;
+    }
+
+    public bool isFarming()
+    {
+        return farming;
+    }
+
+    public bool isCutting()
+    {
+        return cutting;
     }
 
     public Animator getAnimator()
     {
         return mAnimator;
     }
+
+    protected virtual void UpdateResources() { }
 
 
 }

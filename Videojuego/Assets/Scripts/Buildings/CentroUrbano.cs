@@ -20,7 +20,18 @@ public class CentroUrbano : BuildingBehaviour
 
     private void CreateUnit()
     {
-        GameObject unit = Instantiate(Unit, transform.TransformPoint(SpawnPosition), transform.rotation);
+
+        if (ResourceManager.player1_Comida >= 50 && ResourceManager.player1_Hierro >= 50)
+        {
+            if(ResourceManager.player1_Unidad_Actual < ResourceManager.player1_Unidad_Max)
+            {
+                ResourceManager.player1_Comida -= 50;
+                ResourceManager.player1_Hierro -= 50;
+                GameObject unit = Instantiate(Unit, transform.TransformPoint(SpawnPosition), transform.rotation);
+                
+            }
+        }
+            
     }
 
 

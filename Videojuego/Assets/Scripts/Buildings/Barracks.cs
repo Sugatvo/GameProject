@@ -22,12 +22,29 @@ public class Barracks : BuildingBehaviour
 
     private void CreateUnitTop()
     {
-        GameObject unit = Instantiate(UnitTop, transform.TransformPoint(SpawnPosition), transform.rotation);
+        if (ResourceManager.player1_Comida >= 100 && ResourceManager.player1_Hierro >= 100)
+        {
+            if (ResourceManager.player1_Unidad_Actual < ResourceManager.player1_Unidad_Max)
+            {
+                ResourceManager.player1_Comida -= 100;
+                ResourceManager.player1_Hierro -= 100;
+                GameObject unit = Instantiate(UnitTop, transform.TransformPoint(SpawnPosition), transform.rotation);
+
+            }
+        }
     }
     private void CreateUnitBot()
     {
-        GameObject unit = Instantiate(UnitBot, transform.TransformPoint(SpawnPosition), transform.rotation);
-
+        if (ResourceManager.player1_Comida >= 150 && ResourceManager.player1_Hierro >= 150 && ResourceManager.player1_Madera >= 150)
+        {
+            if (ResourceManager.player1_Unidad_Actual < ResourceManager.player1_Unidad_Max)
+            {
+                ResourceManager.player1_Comida -= 150;
+                ResourceManager.player1_Hierro -= 150;
+                ResourceManager.player1_Madera -= 150;
+                GameObject unit = Instantiate(UnitBot, transform.TransformPoint(SpawnPosition), transform.rotation);    
+            }
+        }
     }
 
 

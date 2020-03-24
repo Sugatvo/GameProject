@@ -19,6 +19,8 @@ public class BuildingBehaviour : Entity
     {
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
         buildingCollider = gameObject.GetComponent<Collider>();
+
+        
     }
 
     private void Update()

@@ -6,7 +6,7 @@ public class Aldeano : UnitBehaviour
 {
     private GameObject UIPanel;
     private UIAldeano UIController;
-
+    private float nextHarvest;
 
     protected override void OnSelected()
     {
@@ -20,16 +20,37 @@ public class Aldeano : UnitBehaviour
 
     private void CreateCentroUrbano()
     {
-        BuildManager.instance.SetBuilding(0);
+        if (ResourceManager.player1_Hierro >= 500 && ResourceManager.player1_Madera >= 500)
+        {
+            ResourceManager.player1_Hierro = ResourceManager.player1_Hierro - 500;
+            ResourceManager.player1_Madera = ResourceManager.player1_Madera - 500;
+            BuildManager.instance.SetBuilding(0);
+            ResourceManager.player1_Unidad_Max += 10;
+        }
     }
     private void CreateBarracks()
     {
-        BuildManager.instance.SetBuilding(1);
+        
+        if (ResourceManager.player1_Hierro >= 250 && ResourceManager.player1_Madera >= 300)
+        {
+            ResourceManager.player1_Hierro = ResourceManager.player1_Hierro - 250;
+            ResourceManager.player1_Madera = ResourceManager.player1_Madera - 300;
+            BuildManager.instance.SetBuilding(1);
+        }
     }
     private void CreateOilStorage()
     {
-        BuildManager.instance.SetBuilding(4);
+        
+        if (ResourceManager.player1_Hierro >= 50 && ResourceManager.player1_Madera >= 50)
+        {
+            ResourceManager.player1_Hierro = ResourceManager.player1_Hierro - 50;
+            ResourceManager.player1_Madera = ResourceManager.player1_Madera - 50;
+            ResourceManager.player1_Unidad_Max += 5;
+            BuildManager.instance.SetBuilding(4);
+
+        }
     }
+
 
     protected override void OnDeselected()
     {
@@ -44,8 +65,33 @@ public class Aldeano : UnitBehaviour
 
     protected override void OnAnimation()
     {
-        getAnimator().SetBool("running", isMoving());
-
+        getAnimator().SetBool("running", IsMoving());
+        getAnimator().SetBool("mining", isMining());
+        getAnimator().SetBool("farming", isFarming());
+        getAnimator().SetBool("cutting", isCutting());
     }
+
+    protected override void UpdateResources()
+    {
+        if (isMining() && Time.time > nextHarvest)
+        {
+            nextHarvest = Time.time + 3;
+            ResourceManager.player1_Hierro += 5;
+        }
+
+        if (isFarming() && Time.time > nextHarvest)
+        {
+            nextHarvest = Time.time + 3;
+            ResourceManager.player1_Comida += 5;
+        }
+
+        if (isCutting() && Time.time > nextHarvest)
+        {
+            nextHarvest = Time.time + 3;
+            ResourceManager.player1_Madera += 5;
+        }
+    }
+
+
 
 }

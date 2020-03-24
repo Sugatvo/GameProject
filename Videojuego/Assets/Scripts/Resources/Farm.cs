@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mina : ResourceBehaviour
+public class Farm : ResourceBehaviour
 {
     int Total;
     int Recolectado;

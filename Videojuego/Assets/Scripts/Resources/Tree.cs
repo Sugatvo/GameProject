@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mina : ResourceBehaviour
+public class Tree : ResourceBehaviour
 {
     int Total;
     int Recolectado;
@@ -23,5 +23,4 @@ public class Mina : ResourceBehaviour
         UIPanel = null;
     }
     */
-
 }
