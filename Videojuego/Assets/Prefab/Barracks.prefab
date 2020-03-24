@@ -220,6 +220,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -290,7 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData:
-    MaxHealth: 0
+    MaxHealth: 1500
   SpawnPosition: {x: -5, y: 0, z: 0}
   UnitTop: {fileID: 2953738703693601607, guid: 59ebb81ab3ccca4459caa82eaa994f82, type: 3}
   UnitBot: {fileID: 1936286067321031597, guid: c204b78ef16359d4bbfd1c943f1ef0b0, type: 3}
@@ -348,6 +349,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

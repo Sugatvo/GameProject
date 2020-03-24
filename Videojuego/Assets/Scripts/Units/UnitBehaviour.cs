@@ -45,7 +45,7 @@ public class UnitBehaviour : Entity
         {
             Vector3 position = Target.transform.position;
             navMeshAgent.SetDestination(position);
-            if(!IsMoving())
+            if (!IsMoving())
                 transform.LookAt(position);
         }
     }
@@ -60,7 +60,7 @@ public class UnitBehaviour : Entity
             {
                 if (Input.GetMouseButton(1) && hit.collider)
                 {
-                    if (hit.collider.tag == "Entity") {
+                    if (hit.collider.tag == "Cpu") {
                         Entity entity = hit.collider.GetComponent<Entity>();
                         if (entity != this)
                         {
@@ -108,7 +108,27 @@ public class UnitBehaviour : Entity
                         SetDestination(hit.point);
                     }
                       
-                }       
+                } 
+                
+                if (this.tag == "Cpu" && hit.collider)
+                {
+                    if (hit.collider.tag == "Entity")
+                    {
+                        Entity entity = hit.collider.GetComponent<Entity>();
+                        if (entity != this)
+                        {
+                            request_farming = false;
+                            request_mining = false;
+                            SetTarget(entity);
+                            SetDestination(Target.transform.position);
+                        }
+                        else
+                        {
+                            SetTarget(null);
+                            SetDestination(hit.point);
+                        }
+                    }
+                }
             }
         }
     }
