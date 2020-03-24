@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: Centro Urbano
   Description: 
   Offset: {x: 0, y: 0.1, z: 0}
-  Prefab: {fileID: 7676911811636285349, guid: 2cb9f484b6ce94a4aa39a4bf11740f7c, type: 3}
+  Prefab: {fileID: 1669558958651944564, guid: 2cb9f484b6ce94a4aa39a4bf11740f7c, type: 3}

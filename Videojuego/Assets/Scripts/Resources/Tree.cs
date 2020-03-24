@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class Tree : ResourceBehaviour
 {
-    int Total;
-    int Recolectado;
+    public static int Recolectado = 0;
 
-    /*
     private GameObject UIPanel;
+
 
     protected override void OnSelected()
     {
-        UIPanel = UIManager.instance.ShowPanel(this, 3);
+        UIPanel = UI_Info.instance.ShowPanel(this, 2);
         UIPanel.SetActive(true);
     }
 
 
     protected override void OnDeselected()
     {
-        UIManager.instance.ReleasePanel(this, 3);
+        UI_Info.instance.ReleasePanel(this, 2);
         UIPanel = null;
     }
-    */
 }

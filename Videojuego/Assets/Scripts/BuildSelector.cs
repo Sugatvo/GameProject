@@ -29,19 +29,26 @@ public class BuildSelector : MonoBehaviour
                     }
                     else
                     {
+                        DeactivateAllBuildings();
                         building.SetSelected(true);
                     }
                 }
             }
 
             else if (!eventSystem.IsPointerOverGameObject())
-            { 
-                foreach (BuildingBehaviour building in SelectionManager.buildList)
-                {
-                    building.SetSelected(false);
-                }
+            {
+                DeactivateAllBuildings();
             }
 
         }
+    }
+
+    void DeactivateAllBuildings()
+    {
+        foreach (BuildingBehaviour building in SelectionManager.buildList)
+        {
+                building.SetSelected(false);
+        }
+
     }
 }

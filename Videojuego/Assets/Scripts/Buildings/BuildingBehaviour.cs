@@ -10,6 +10,7 @@ public class BuildingBehaviour : Entity
 
     public bool validPosition { get; private set; }
     private int collisions;
+    public bool cpu = false;
 
     private MeshRenderer meshRenderer;
     private Collider buildingCollider;
@@ -25,7 +26,7 @@ public class BuildingBehaviour : Entity
 
     private void Update()
     {
-        if (!placed && started)
+        if (!placed && started && !cpu)
         {
             validPosition = collisions > 0 ? false : true;
             if (validPosition)

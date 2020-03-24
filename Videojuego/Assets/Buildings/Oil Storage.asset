@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: Oil Storage
   Description: 
   Offset: {x: 0, y: 0.1, z: 0}
-  Prefab: {fileID: 7415013236818216401, guid: 906ff7934df762c4b846b721a5945eca, type: 3}
+  Prefab: {fileID: 6773833742773860916, guid: 906ff7934df762c4b846b721a5945eca, type: 3}

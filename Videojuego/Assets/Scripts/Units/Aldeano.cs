@@ -77,18 +77,21 @@ public class Aldeano : UnitBehaviour
         {
             nextHarvest = Time.time + 3;
             ResourceManager.player1_Hierro += 5;
+            Mina.Recolectado += 5;
         }
 
         if (isFarming() && Time.time > nextHarvest)
         {
             nextHarvest = Time.time + 3;
             ResourceManager.player1_Comida += 5;
+            Farm.Recolectado += 5;
         }
 
         if (isCutting() && Time.time > nextHarvest)
         {
             nextHarvest = Time.time + 3;
             ResourceManager.player1_Madera += 5;
+            Tree.Recolectado += 5;
         }
     }
 

@@ -15,7 +15,7 @@ public class ResourceBehaviour : MonoBehaviour
         SelectionManager.resourceList.Add(this);
         selector = transform.Find("Selector").gameObject;
         if (selector == null)
-            Debug.LogError("ENTITY HAS NOT SELECTED!");
+            Debug.LogError("RESOURCE HAS NOT SELECTED!");
         selector.SetActive(false);
         OnStart();
         started = true;

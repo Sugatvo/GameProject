@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class Mina : ResourceBehaviour
 {
-    int Total;
-    int Recolectado;
+    public static int Recolectado = 0;
 
-    /*
     private GameObject UIPanel;
+
 
     protected override void OnSelected()
     {
-        UIPanel = UIManager.instance.ShowPanel(this, 3);
+        UIPanel = UI_Info.instance.ShowPanel(this, 0);
         UIPanel.SetActive(true);
     }
 
 
     protected override void OnDeselected()
     {
-        UIManager.instance.ReleasePanel(this, 3);
+        UI_Info.instance.ReleasePanel(this, 0);
         UIPanel = null;
     }
-    */
 
 }

@@ -38,6 +38,7 @@ public class UnitBehaviour : Entity
         UpdateMovement();
         UpdateCombat();
         UpdateResources();
+        UpdateIA();
     }
     protected override void OnLateUpdate()
     {
@@ -109,6 +110,8 @@ public class UnitBehaviour : Entity
                     }
                       
                 } 
+
+                /*
                 
                 if (this.tag == "Cpu" && hit.collider)
                 {
@@ -128,7 +131,7 @@ public class UnitBehaviour : Entity
                             SetDestination(hit.point);
                         }
                     }
-                }
+                }*/
             }
         }
     }
@@ -278,6 +281,15 @@ public class UnitBehaviour : Entity
 
     protected virtual void UpdateResources() { }
 
+
+    private void UpdateIA()
+    {
+        if (this.tag == "Cpu")
+        {
+            Collider collider = this.GetComponent<SphereCollider>();
+            //Debug.Log(collider.isTrigger);
+        }
+    }
 
 }
 

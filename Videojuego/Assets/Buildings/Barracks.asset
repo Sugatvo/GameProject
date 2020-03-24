@@ -15,4 +15,4 @@ MonoBehaviour:
   Name: Barracks
   Description: 
   Offset: {x: 0, y: 0.1, z: 0}
-  Prefab: {fileID: 4072110944887904742, guid: ee31b833a782bcc41a3410b04689721e, type: 3}
+  Prefab: {fileID: 5259128773583235779, guid: 6b3a5efedd6bdff44a3d3d45da303e55, type: 3}

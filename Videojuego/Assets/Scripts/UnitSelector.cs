@@ -95,7 +95,10 @@ public class UnitSelector : MonoBehaviour
         {
             if (selectionRect.Contains(Camera.main.WorldToScreenPoint(unit.transform.position)))
             {
-                unit.SetSelected(true);
+                if(unit.tag == "Entity")
+                {
+                    unit.SetSelected(true);
+                }   
             }
         }
     }

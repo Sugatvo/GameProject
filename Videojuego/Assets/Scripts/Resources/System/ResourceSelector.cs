@@ -15,6 +15,7 @@ public class ResourceSelector : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+           
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, resourceMask))
@@ -28,6 +29,7 @@ public class ResourceSelector : MonoBehaviour
                     }
                     else
                     {
+                        DeactivateAllResources();
                         resource.SetSelected(true);
                     }
                 }
@@ -35,12 +37,19 @@ public class ResourceSelector : MonoBehaviour
             }
             else if (!eventSystem.IsPointerOverGameObject())
             {
-                foreach (ResourceBehaviour r in SelectionManager.resourceList)
-                {
-                    r.SetSelected(false);
-                }
+                DeactivateAllResources();
             }
 
         }
+    }
+
+
+    void DeactivateAllResources()
+    {
+        foreach (ResourceBehaviour r in SelectionManager.resourceList)
+        {
+            r.SetSelected(false);
+        }
+
     }
 }
