@@ -2,52 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IA_Rango : MonoBehaviour
+public class IA_Rango : UnitBehaviour
 {
-    public bool cantAtack;
     public Vector3 targetPosition;
-    public Vector3 towardsTarget;
-    public float movementSpeed = 7f;
-    public float wanderRadius = 12f;
+    public float wanderRadius = 40f;
 
-    private void Start()
+    protected override void OnStart()
     {
-        cantAtack = false;
+        base.OnStart();
         ChangePosition();
     }
 
-    private void Update() {
-        towardsTarget = targetPosition - transform.position;
-        if(towardsTarget.magnitude < 0.25f)
+    protected override void OnUpdate() {
+        base.OnUpdate();
+
+
+        // No esta haciendo anda
+        if (!IsMoving() && Target == null)
         {
             ChangePosition();
-        }
-        transform.position += towardsTarget.normalized * movementSpeed * Time.deltaTime;
-       /* if (this.GetComponent<Collider>())
-        {
-                Debug.Log("algo entre");
+            SetDestination(targetPosition);
             
-        }*/ 
+        }
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
-        
-        if(other.tag == "Entity")
+
+        if (other.tag == "Entity" && Target == null)
         {
             targetPosition = other.transform.position;
+            SetTarget(other.GetComponent<Entity>());
+            SetDestination(targetPosition);
+
             Debug.Log(other.transform.position);
-            cantAtack = true;
-            
+
             //Debug.Log("Entidad entra en el rango");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Entity")
+        if (other.tag == "Entity" && Target)
         {
+            if(other.GetComponent<Entity>() == Target)
+            {
+                SetTarget(null);
+            }
             
-            Debug.Log("Sale del rango");
         }
     }
 
@@ -56,4 +58,10 @@ public class IA_Rango : MonoBehaviour
         targetPosition = transform.position + Random.insideUnitSphere * wanderRadius;
         targetPosition.y = 0;
     }
+
+    protected override void OnAnimation()
+    {
+        getAnimator().SetBool("running", IsMoving());
+    }
+
 }

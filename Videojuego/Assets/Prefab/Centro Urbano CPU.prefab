@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityData:
     MaxHealth: 2500
+  cpu: 1
   SpawnPosition: {x: -2, y: 0, z: 0}
   Unit: {fileID: 5532386103785910200, guid: 7c5662d02397d3a40aede8de781dd739, type: 3}
 --- !u!1 &2642908806620054258

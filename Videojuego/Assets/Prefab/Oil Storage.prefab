@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData:
-    MaxHealth: 0
+    MaxHealth: 100
   cpu: 0
 --- !u!54 &3849341640630234401
 Rigidbody:

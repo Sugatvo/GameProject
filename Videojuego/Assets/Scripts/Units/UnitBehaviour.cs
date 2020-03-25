@@ -21,6 +21,7 @@ public class UnitBehaviour : Entity
     public bool inRange { get; private set; }
 
     private float nextFire;
+    public LayerMask layer;
 
 
     protected override void OnStart()
@@ -28,8 +29,8 @@ public class UnitBehaviour : Entity
         SelectionManager.unitList.Add(this);
         mAnimator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
-
         PauseMovement();
+ 
     }
 
     protected override void OnUpdate()
@@ -57,7 +58,7 @@ public class UnitBehaviour : Entity
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
             {
                 if (Input.GetMouseButton(1) && hit.collider)
                 {
@@ -69,11 +70,6 @@ public class UnitBehaviour : Entity
                             request_mining = false;
                             SetTarget(entity);
                             SetDestination(Target.transform.position);
-                        }
-                        else
-                        {               
-                            SetTarget(null);
-                            SetDestination(hit.point);
                         }
                     }
                     else if (hit.collider.tag == "Resource")
@@ -109,29 +105,7 @@ public class UnitBehaviour : Entity
                         SetDestination(hit.point);
                     }
                       
-                } 
-
-                /*
-                
-                if (this.tag == "Cpu" && hit.collider)
-                {
-                    if (hit.collider.tag == "Entity")
-                    {
-                        Entity entity = hit.collider.GetComponent<Entity>();
-                        if (entity != this)
-                        {
-                            request_farming = false;
-                            request_mining = false;
-                            SetTarget(entity);
-                            SetDestination(Target.transform.position);
-                        }
-                        else
-                        {
-                            SetTarget(null);
-                            SetDestination(hit.point);
-                        }
-                    }
-                }*/
+                }
             }
         }
     }
