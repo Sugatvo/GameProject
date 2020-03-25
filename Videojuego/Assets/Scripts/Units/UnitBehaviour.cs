@@ -71,7 +71,7 @@ public class UnitBehaviour : Entity
                             SetDestination(Target.transform.position);
                         }
                         else
-                        {
+                        {               
                             SetTarget(null);
                             SetDestination(hit.point);
                         }
@@ -284,11 +284,11 @@ public class UnitBehaviour : Entity
 
     private void UpdateIA()
     {
-        if (this.tag == "Cpu")
-        {
-            Collider collider = this.GetComponent<SphereCollider>();
-            //Debug.Log(collider.isTrigger);
-        }
+        /*if (this.tag == "Cpu")
+        {   
+           
+           Debug.Log("holaaa");
+        }*/
     }
 
 }
