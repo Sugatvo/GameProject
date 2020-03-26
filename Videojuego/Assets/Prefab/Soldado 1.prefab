@@ -818,11 +818,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData:
-    MaxHealth: 100
+    MaxHealth: 200
   unitData:
-    AttackDamage: 10
+    AttackDamage: 20
     AttackCooldown: 1
-    Range: 1
+    Range: 19
   layer:
     serializedVersion: 2
     m_Bits: 0
@@ -891,6 +891,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2584,6 +2585,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2662,6 +2664,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

@@ -1,34 +1,42 @@
 ﻿using UnityEngine;
 
+
 public class CameraController : MonoBehaviour
 {
     public float panSpeed = 20f;
-    public float panBorderThickness = 10f;
-    public Vector2 panLimit;
+    public float panBorderThickness = 5f;
+    public Vector3 panLimit;
     public float scrollSpeed = 20f;
+
+    public int min = 15;
+    public int max = 40;
+
+    private Camera cameraMain;
+
+    private void Awake()
+    {
+        cameraMain = Camera.main;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = transform.localPosition;
-        if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panBorderThickness)
-        {
-            pos.y += panSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey("s") || Input.mousePosition.y <= panBorderThickness)
-        {
-            pos.y -= panSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey("d") || Input.mousePosition.x >= Screen.width - panBorderThickness)
-        {
-            pos.x += panSpeed * Time.deltaTime;
-        }
-        if (Input.GetKey("a") || Input.mousePosition.x <= panBorderThickness)
-        {
-            pos.x -= panSpeed * Time.deltaTime;
-        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            panSpeed = 2;
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            panSpeed /= 2;
 
-        pos.x = Mathf.Clamp(pos.x, -panLimit.x, panLimit.x);
-        pos.y = Mathf.Clamp(pos.y, -panLimit.y, panLimit.y);
+       Vector3 pos = transform.position;
+
+        pos += transform.forward * Input.GetAxis("Vertical") * panSpeed;
+        pos += transform.right * Input.GetAxis("Horizontal") * panSpeed;
+
+        pos.x = Mathf.Clamp(pos.x, -25, panLimit.x);
+        pos.y = 60;
+        pos.z = Mathf.Clamp(pos.z, -25, panLimit.z);
+
+        cameraMain.orthographicSize = Mathf.Clamp(cameraMain.orthographicSize - (1 * Input.mouseScrollDelta.y * scrollSpeed), min, max);
 
         transform.localPosition = pos;
     }
