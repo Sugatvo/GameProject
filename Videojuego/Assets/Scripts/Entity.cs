@@ -110,6 +110,10 @@ public abstract class Entity : MonoBehaviour
         SetSelected(false);
         OnDestroyEntity();
         Destroy(gameObject);
+        if(gameObject.name == "Centro Urbano CPU")
+        {
+            UIManager.instance.ShowWin();
+        }
     }
     protected virtual void OnHealthChange(float damage)
     {

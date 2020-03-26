@@ -15,7 +15,6 @@ public class IA_Rango : UnitBehaviour
         base.OnStart();
         ChangePosition();
         flujo = 0;
-        
     }
 
     protected override void OnUpdate() {

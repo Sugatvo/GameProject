@@ -6,6 +6,9 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public GameObject Win;
+    public GameObject Lose;
+
     public GameObject inventory;
     public GameObject[] panels;
 
@@ -22,6 +25,18 @@ public class UIManager : MonoBehaviour
         }
         ClearActivePanel();
         instance = this;
+    }
+
+    private void Update()
+    {
+        bool lose = true;
+        foreach(UnitBehaviour unit in SelectionManager.unitList)
+        {
+            if (!unit.CompareTag("Cpu"))
+                lose = false;
+        }
+        if (lose)
+            ShowLose();
     }
 
     public GameObject ShowPanel(Entity entity, int id)
@@ -94,5 +109,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowWin()
+    {
+        Win.SetActive(true);
+    }
 
+    public void ShowLose()
+    {
+        Lose.SetActive(true);
+    }
+
+    public void MainMenu()
+    {
+
+    }
 }
