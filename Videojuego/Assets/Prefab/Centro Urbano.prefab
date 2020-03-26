@@ -133,7 +133,7 @@ MonoBehaviour:
     MaxHealth: 2500
   cpu: 0
   SpawnPosition: {x: -2, y: 0, z: 0}
-  Unit: {fileID: 5532386103785910200, guid: 7c5662d02397d3a40aede8de781dd739, type: 3}
+  Unit: {fileID: 6529645519750013352, guid: 1a11575dc263ca14bafa0658b88f2f35, type: 3}
 --- !u!1 &2434840027563263827
 GameObject:
   m_ObjectHideFlags: 0
