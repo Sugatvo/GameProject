@@ -26,7 +26,8 @@ public class UnitBehaviour : Entity
 
     protected override void OnStart()
     {
-        SelectionManager.unitList.Add(this);
+        if(this.tag != "Cpu")
+            SelectionManager.unitList.Add(this);
         mAnimator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         PauseMovement();
