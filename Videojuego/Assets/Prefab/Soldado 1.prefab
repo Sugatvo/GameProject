@@ -166,7 +166,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 30
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5744940562967477806
 GameObject:
@@ -828,6 +828,8 @@ MonoBehaviour:
     m_Bits: 0
   targetPosition: {x: 0, y: 0, z: 0}
   wanderRadius: 40
+  indicador: {fileID: 7110935346836131080}
+  modelo: {fileID: 7110935345612664379}
 --- !u!54 &-3027591344278753808
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -860,7 +862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7110935345612764123
 Transform:
   m_ObjectHideFlags: 0
@@ -2623,7 +2625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7110935346836131081
 Transform:
   m_ObjectHideFlags: 0

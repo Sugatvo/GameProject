@@ -9,6 +9,12 @@ public class Tree : ResourceBehaviour
     private GameObject UIPanel;
 
 
+    protected override void OnStart()
+    {
+        base.OnStart();
+        Debug.Log("Start tree");
+    }
+
     protected override void OnSelected()
     {
         UIPanel = UI_Info.instance.ShowPanel(this, 2);

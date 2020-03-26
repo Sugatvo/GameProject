@@ -6,11 +6,16 @@ public class IA_Rango : UnitBehaviour
 {
     public Vector3 targetPosition;
     public float wanderRadius = 40f;
+    public GameObject indicador;
+    public GameObject modelo;
+    private int flujo;
 
     protected override void OnStart()
     {
         base.OnStart();
         ChangePosition();
+        flujo = 0;
+        
     }
 
     protected override void OnUpdate() {
@@ -22,8 +27,24 @@ public class IA_Rango : UnitBehaviour
         {
             ChangePosition();
             SetDestination(targetPosition);
-            
+
+            flujo = 0;
+            indicador.SetActive(false);
+            modelo.SetActive(false);
+
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Entity")
+        {
+            indicador.SetActive(true);
+            modelo.SetActive(true);
+            flujo += 1;
+        }
+        
+
     }
 
     private void OnTriggerStay(Collider other)
@@ -43,6 +64,16 @@ public class IA_Rango : UnitBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        
+        if (other.tag == "Entity")
+        {
+            flujo -= 1;
+            if(flujo == 0)
+            {
+                indicador.SetActive(false);
+                modelo.SetActive(false);
+            }
+        }
         if (other.tag == "Entity" && Target)
         {
             if(other.GetComponent<Entity>() == Target)

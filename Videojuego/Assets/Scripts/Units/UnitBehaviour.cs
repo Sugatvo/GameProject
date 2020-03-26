@@ -75,6 +75,7 @@ public class UnitBehaviour : Entity
                     else if (hit.collider.tag == "Resource")
                     {
                         ResourceBehaviour r = hit.collider.GetComponent<ResourceBehaviour>();
+                        Debug.Log(r.name);
                         if (r.name == "Ore")
                         {
                             request_mining = true;
@@ -88,7 +89,7 @@ public class UnitBehaviour : Entity
                             SetTarget(null);
                             SetDestination(hit.point);
                         }
-                        if (r.name == "Tree")
+                        if (r.name.Contains("Tree"))
                         {
                             request_cutting = true;
                             SetTarget(null);

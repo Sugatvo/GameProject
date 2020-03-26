@@ -355,6 +355,8 @@ MonoBehaviour:
     m_Bits: 0
   targetPosition: {x: 0, y: 0, z: 0}
   wanderRadius: 40
+  indicador: {fileID: 1403796680419494227}
+  modelo: {fileID: 1403796680198254235}
 --- !u!54 &1403796680198254249
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -386,7 +388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1403796680197895035
 Transform:
   m_ObjectHideFlags: 0
@@ -574,7 +576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1403796680419494220
 Transform:
   m_ObjectHideFlags: 0
